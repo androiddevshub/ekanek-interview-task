@@ -7,6 +7,7 @@ import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import MainPage from './MainPage'
 import DashboardPage from './DashboardPage';
+import 'antd/dist/antd.css';
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
