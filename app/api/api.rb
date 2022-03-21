@@ -1,4 +1,5 @@
 class Api < Grape::API
+  helpers AuthenticationHelpers
   format :json
   prefix "api"
   default_error_formatter :json
