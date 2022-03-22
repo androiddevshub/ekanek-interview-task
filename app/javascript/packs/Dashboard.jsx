@@ -30,7 +30,13 @@ export default function Dashboard() {
   
   const handleFile = (e) => {
     console.log(e.target.files);
-    setFile(e.target.files[0]);
+    const fileSize = e.target.files[0].size / 1024 / 1024; // in MiB
+    if (fileSize > 1024) {
+      alert('File size exceeds 1 GB');
+    } else {
+      setFile(e.target.files[0]);
+    }
+    
     
   }
 
