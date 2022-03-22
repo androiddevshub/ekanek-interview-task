@@ -6,7 +6,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import MainPage from './MainPage'
-import DashboardPage from './DashboardPage';
+import Dashboard from './Dashboard';
 import 'antd/dist/antd.css';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     <Router>
       <Routes>
         <Route exact path="/" element={<MainPage/>} />
-        <Route path="/dashboard" element={<DashboardPage/>} />
+        <Route path="/dashboard" element={<Dashboard/>} />
     </Routes>
     </Router>,
     document.body.appendChild(document.createElement('div')),

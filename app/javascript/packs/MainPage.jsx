@@ -67,6 +67,7 @@ export default function MainPage() {
         setFormState({ email: "", password: "" });
         alert(response.data.message)
         localStorage.setItem('auth_token', response.data.data.token);
+        localStorage.setItem('user_id', response.data.data.id);
         navigate('/dashboard');
       }).catch((error) => {
         alert(error.response.data.message)

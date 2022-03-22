@@ -1,25 +1,28 @@
 .logout-button {
-  position: fixed;
+  position: absolute;
   top: 0;
   right: 0;
   margin: 20px;
 }
 
+.new-upload-button {
+  position: absolute;
+  top: 80px;
+  left: 50px;
+}
+
 .main {
   display: flex;
   flex-direction: column;
-  margin-top: 100px;
+  margin-top: 150px;
   margin-left: 50px;
-}
-
-body {
-  background: #eee;
+  margin-right: 50px;
 }
 
 .file-input {
   display: inline-block;
   text-align: left;
-  background: #fff;
+  background: #cfcfcf;
   padding: 16px;
   width: 450px;
   position: relative;
@@ -65,6 +68,7 @@ body {
 .file-info {
   width: 450px;
   display: flex;
+  margin-top: 20px;
   flex-direction: column;
 }
 

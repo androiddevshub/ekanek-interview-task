@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_21_083733) do
+ActiveRecord::Schema.define(version: 2022_03_21_111038) do
 
   create_table "user_tokens", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "access_token"
@@ -21,6 +21,18 @@ ActiveRecord::Schema.define(version: 2022_03_21_083733) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["access_token"], name: "index_user_tokens_on_access_token", unique: true
     t.index ["user_id"], name: "index_user_tokens_on_user_id"
+  end
+
+  create_table "user_uploads", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "name"
+    t.string "description"
+    t.string "key"
+    t.string "url"
+    t.string "file_type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_user_uploads_on_user_id"
   end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
