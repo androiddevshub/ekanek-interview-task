@@ -59,55 +59,47 @@ export default function Dashboard() {
   };
 
   const uploadToAwsS3 = async () => {
-    setUploading(true);
-    console.log("get_url_", "aaye hai")
-    const { data } = await axios.post("/api/user_uploads/generate_presigned_url", {
-      fileName: file.name,
-      fileType: file.type,
-      directory: "upload/files"
-    });
-
-    const { post_url, get_url, key } = data.data;
-
-    console.log("get_url_1", get_url)
+    if (file && fileInfo.name && fileInfo.description) {
+      setUploading(true);
+      const { data } = await axios.post("/api/user_uploads/generate_presigned_url", {
+        fileName: file.name,
+        fileType: file.type,
+        directory: "upload/files"
+      });
+      const { post_url, get_url, key } = data.data;
     
-    const options = {
-      headers: {
-        "Content-Type": file.type, 'acl': 'public-read',
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
-        "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
-      },
-      onUploadProgress: (progressEvent) => {
-        const { loaded, total } = progressEvent;
-        let percent = Math.floor((loaded * 100) / total)
-        console.log(`${loaded}kb of ${total}kb | ${percent}%`);
-        setUploadPercentage(percent)
-
-        if( percent < 100 ){
-          console.log("fewfe", percent);
+      const options = {
+        headers: {
+          "Content-Type": file.type, 'acl': 'public-read',
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+          "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
+        },
+        onUploadProgress: (progressEvent) => {
+          const { loaded, total } = progressEvent;
+          let percent = Math.floor((loaded * 100) / total)
+          setUploadPercentage(percent)
         }
       }
+      console.log(post_url, get_url)
+      const response = await axios.put(post_url, file, options);
+      
+      if (response.status === 200) {
+        const res = await axios.post("/api/user_uploads", {
+          user_id: localStorage.user_id,
+          name: fileInfo.name,
+          description: fileInfo.description,
+          key: key,
+          url: get_url,
+          file_type: file.type,
+        });
+        getUserUploads();
+        setOpenDialog(false);
+        setUploading(false)
+      }
+    } else {
+      alert("Please fill out all field")
     }
-    console.log(post_url, get_url)
-    const response = await axios.put(post_url, file, options);
-     
-    if (response.status === 200) {
-      const res = await axios.post("/api/user_uploads", {
-        user_id: localStorage.user_id,
-        name: fileInfo.name,
-        description: fileInfo.description,
-        key: key,
-        url: get_url,
-        file_type: file.type,
-      });
-      console.log("url", res, get_url);
-      getUserUploads();
-      setOpenDialog(false);
-      setUploading(false)
-    }
-     
-    // return get_url;
   };
 
 
