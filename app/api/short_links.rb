@@ -12,6 +12,25 @@ class ShortLinks < Api
       end
     end
 
+    get "/redirect/:slug" do
+      
+      link = ShortLink.find_by_slug(params[:slug]) 
+      if link.nil?
+        error!({ status: false, message: "It seems you have tried a wrong link" }, 400)
+      else
+        if link.access === "private"
+          authenticate!
+          if link.shared_users.find_by(email: current_user.email)
+            { status: true, data: link }
+          else
+            error!({ status: false, message: "It seems you don't have access to the url" }, 400)
+          end
+        else
+          { status: true, data: link }
+        end
+      end
+    end
+
     desc "Create Short Link API"
     post "/generate" do
       short_link = ShortLink.create(params)

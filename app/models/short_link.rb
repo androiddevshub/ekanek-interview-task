@@ -15,13 +15,13 @@ class ShortLink < ApplicationRecord
   end
 
   def short
-    Rails.application.routes.url_helpers.short_url(slug: self.slug)
+    
   end
 
   def data
     {
       id: id,
-      short_url: self.short,
+      short_url: "#{ENV['APP_HOST']}/s/#{slug}",
       access: access
     }
   end

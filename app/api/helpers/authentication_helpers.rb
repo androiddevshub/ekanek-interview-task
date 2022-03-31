@@ -2,7 +2,7 @@ module AuthenticationHelpers
   extend Grape::API::Helpers
 
   def authenticate!
-    error!({ message: "Unauthorized. Invalid or expired token.", status_code: false }, 401) unless current_user
+    error!({ message: "Unauthorized. Invalid or expired token.", status_code: false, logged_in: false }, 401) unless current_user
   end
 
   def current_user
