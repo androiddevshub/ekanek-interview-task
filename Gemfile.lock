@@ -1292,10 +1292,6 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
-    dotenv (2.7.6)
-    dotenv-rails (2.7.6)
-      dotenv (= 2.7.6)
-      railties (>= 3.2)
     dry-configurable (0.13.0)
       concurrent-ruby (~> 1.0)
       dry-core (~> 0.6)
@@ -1459,7 +1455,6 @@ DEPENDENCIES
   bootsnap (>= 1.4.4)
   byebug
   devise
-  dotenv-rails
   foreman
   grape
   grape_on_rails_routes
