@@ -10,9 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_21_111038) do
+ActiveRecord::Schema.define(version: 2022_03_30_173126) do
 
-  create_table "user_tokens", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "shared_users", force: :cascade do |t|
+    t.bigint "short_link_id"
+    t.string "email"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["short_link_id"], name: "index_shared_users_on_short_link_id"
+  end
+
+  create_table "short_links", force: :cascade do |t|
+    t.string "url"
+    t.string "slug"
+    t.bigint "user_upload_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "access", null: false
+    t.index ["user_upload_id"], name: "index_short_links_on_user_upload_id"
+  end
+
+  create_table "user_tokens", force: :cascade do |t|
     t.string "access_token"
     t.datetime "expires_at"
     t.integer "user_id"
@@ -23,7 +44,7 @@ ActiveRecord::Schema.define(version: 2022_03_21_111038) do
     t.index ["user_id"], name: "index_user_tokens_on_user_id"
   end
 
-  create_table "user_uploads", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "user_uploads", force: :cascade do |t|
     t.bigint "user_id"
     t.string "name"
     t.string "description"
@@ -35,7 +56,7 @@ ActiveRecord::Schema.define(version: 2022_03_21_111038) do
     t.index ["user_id"], name: "index_user_uploads_on_user_id"
   end
 
-  create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
     t.string "name", default: "", null: false
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false

@@ -26,8 +26,8 @@ class UserUploads < Api
       key = "#{directory}/#{SecureRandom.hex}/#{filename}"
       
       signer = Aws::S3::Presigner.new
-      post_url = signer.presigned_url(:put_object, bucket: Rails.application.credentials[:aws][:bucket_name], key: key, acl: 'public-read', content_type: file_type)
-      get_url = "https://#{Rails.application.credentials[:aws][:bucket_name]}.s3.us-east-2.amazonaws.com/#{key}"
+      post_url = signer.presigned_url(:put_object, bucket: ENV['AWS_BUCKET_NAME'], key: key, acl: 'public-read', content_type: file_type)
+      get_url = "https://#{ENV['AWS_BUCKET_NAME']}.s3.us-east-2.amazonaws.com/#{key}"
 
       if post_url
         { status: true, data: { post_url: post_url, get_url: get_url, key: key}, message: "Link generated successfully" }

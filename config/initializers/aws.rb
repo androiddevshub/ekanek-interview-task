@@ -1,6 +1,6 @@
 Aws.config.update({
   region: "us-east-2",
-  credentials: Aws::Credentials.new(Rails.application.credentials[:aws][:access_key_id], Rails.application.credentials[:aws][:secret_access_key]),
+  credentials: Aws::Credentials.new(ENV['AWS_ACCESS_KEY_ID'], ENV['AWS_SECRET_ACCESS_KEY']),
 })
 
-S3_BUCKET = Aws::S3::Resource.new.bucket(Rails.application.credentials[:aws][:bucket_name])
+S3_BUCKET = Aws::S3::Resource.new.bucket(ENV['AWS_BUCKET_NAME'])

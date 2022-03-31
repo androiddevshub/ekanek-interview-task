@@ -7,6 +7,7 @@ class Api < Grape::API
 
   mount Users
   mount UserUploads
+  mount ShortLinks
 
   before do
     header["Access-Control-Allow-Origin"] = "*"

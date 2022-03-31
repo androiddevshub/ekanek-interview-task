@@ -7,6 +7,7 @@ ruby '2.6.5'
 gem 'rails', '~> 6.1.4', '>= 6.1.4.4'
 # Use mysql as the database for Active Record
 gem 'mysql2', '~> 0.5'
+gem 'pg'
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
 # Use SCSS for stylesheets
@@ -24,9 +25,11 @@ gem 'jbuilder', '~> 2.7'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
+gem 'dotenv-rails', groups: [:development, :test]
 
 # User devise for user authentication
 gem 'devise'
+gem 'foreman'
 
 # Use grape for creating apis
 gem 'grape'
