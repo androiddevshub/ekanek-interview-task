@@ -59,7 +59,7 @@ class UserUploads < Api
       upload = UserUpload.find_by(id: params[:id])
       client = Aws::S3::Client.new
       obj = client.delete_object({
-        bucket: Rails.application.credentials[:aws][:bucket_name], 
+        bucket: ENV['AWS_BUCKET_NAME'], 
         key: params[:key], 
       })
       if upload.delete && obj
